@@ -162,5 +162,5 @@ cython_debug/
 # My test files
 test*
 
-# My sdf
+# My generated files
 files/
