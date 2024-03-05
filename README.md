@@ -1,2 +1,13 @@
-# Python-To-Do-App
-A To-Do app in Python.
+# Shopping List
+A shopping list app in Python.
+
+## Terminal
+
+```bash
+py -m venv venv
+```
+
+```bash
+.\venv\Scripts\activate
+py .\main.py
+```
