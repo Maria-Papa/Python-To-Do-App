@@ -18,7 +18,7 @@ help_text = {
 
 ############# FUNCTIONS #############
 def print_help(need_help):
-    """ TEST """
+    """ Print help for the commands. """
     need_help = need_help.lower().strip()
 
     match need_help:
@@ -27,6 +27,7 @@ def print_help(need_help):
                 print("*", value)
 
 def read_items(file_path):
+    """ Get a list of the items in the txt file. """
     try:
         with open(file_path, "r") as file:
             items = file.readlines()
@@ -36,11 +37,13 @@ def read_items(file_path):
 
 
 def write_items(file_path, lines):
+    """ Write the given lines to the txt file. """
     with open(file_path, "w") as file:
         file.writelines(lines)
 
 
 def add_item(file_path, item):
+    """ Add an item to the items list in the txt file. """
     lines = read_items(file_path)
 
     lines.append(item + "\n")
@@ -50,6 +53,8 @@ def add_item(file_path, item):
 
 
 def show_list(file_path):
+    """ Print the shopping list from the txt file
+    in the format ofprint_list_items function. """
     # try:
     items = read_items(file_path)
 
@@ -64,6 +69,7 @@ def show_list(file_path):
 
 
 def edit_item(file_path, index):
+    """ Edit an item in the txt file. """
     lines = read_items(file_path)
 
     old_item     = lines[index].strip("\n")
@@ -75,6 +81,7 @@ def edit_item(file_path, index):
 
 
 def check_off_item(file_path, index):
+    """ Remove an item from the txt file. """
     lines = read_items(file_path)
 
     checked_off_item = lines[index].strip("\n")
