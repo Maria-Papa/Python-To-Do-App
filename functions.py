@@ -1,4 +1,6 @@
-import helpers
+import array
+from PySimpleGUI import Listbox
+from helpers import print_list_items
 from variables import red, green, no_color, help_text
 
 def print_help(need_help):
@@ -47,23 +49,24 @@ def show_list(file_path):
     print("Your current shopping list is:")
     print("==============================")
     
-    helpers.print_list_items(items, True)
+    print_list_items(items, True)
 
     print("==============================")
     # except FileNotFoundError:
     #     print(f"{red}File NOT found!{no_color}")
 
 
-def edit_item(file_path, index):
+def edit_item(file_path, old_item, new_item) -> array:
     """ Edit an item in the txt file. """
     lines = read_items(file_path)
+    index = lines.index(old_item)
 
-    old_item     = lines[index].strip("\n")
-    new_item     = input("Enter new item: ")
     lines[index] = new_item + "\n"
 
     write_items(file_path, lines)
-    print(f"{green}Item [{old_item}] was changed to [{new_item}]{no_color}")
+    print(f"{green}Item [{old_item.strip()}] was changed to [{new_item}]{no_color}")
+
+    return lines
 
 
 def check_off_item(file_path, index):
@@ -75,3 +78,26 @@ def check_off_item(file_path, index):
 
     write_items(file_path, lines)
     print(f"{green}Item [{checked_off_item}] has been checked off.{no_color}")
+
+
+def refresh_list(shopping_list: str, list_box: Listbox, auto_scroll_down = True, items = []) -> None:
+    """Refresh the given listbox element.
+
+    Args:
+        shopping_list (str): The shopping list txt file name.
+        list_box (Listbox): The Listbox Element.
+        auto_scroll_down (bool): Whether to auto scroll down inside the given Listbox Element.
+            (default is True)
+        items (array): The items of the Listbox Element.
+            (default is [])
+
+    Returns:
+        None
+    """
+    if (not items):
+        items = read_items(shopping_list)
+
+    list_box.update(values=items)
+
+    if (auto_scroll_down):
+        list_box.set_vscroll_position(1.0)
